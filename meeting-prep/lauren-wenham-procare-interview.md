@@ -1,5 +1,11 @@
-# Interview Prep — Lauren Wenham, UW Children's Center at Portage Bay
-**Date:** May 21, 2026 (30 min) · **Goal:** Discover JTBD + Procare pain points, validate venture opportunity
+# Interview Prep — Haggard / UW Childcare Directors (Procare + JTBD)
+**Original interview:** Lauren Wenham, Portage Bay — May 21, 2026
+**Status:** Lauren agreed to introduce the rest of the Haggard director network + the owner. This doc is now the template for the follow-on interviews.
+
+## Update after the Lauren interview (May 21)
+- **Procare hasn't meaningfully changed in years** — Lauren's words. Incumbent stagnation confirmed.
+- **AI scheduling surfaced as the biggest unmet need** — she raised it unprompted. This is now the **#1 hypothesis to test** with every follow-on interview. If 3 of 5 directors light up on it, we have a venture wedge.
+- Network access unlocked: Haggard directors + the owner are inbound. Next 5 interviews should test scheduling as the primary topic, billing/expense as secondary.
 
 ---
 
@@ -98,38 +104,43 @@ Follow-ups (Forces of Progress):
 - **Anxiety:** "What worried you about switching?"
 - **Habit:** "What did you almost stick with anyway?"
 
-### E. Workflow deep-dives (10 min) — pick the 2 hottest
+### E. Workflow deep-dives (10 min) — lead with scheduling, then pick 1–2 more
 
-Heat-check each in 30 seconds, then go deep on the top 2.
+Heat-check each in 30 seconds, then go deep on the top 2. **Start with scheduling** — that's the live hypothesis from Lauren.
 
-**(i) Sign-in / check-in / pickup**
+**(i) Staff scheduling, ratios, and call-outs** — 🔥 *PRIMARY HYPOTHESIS*
+- "Walk me through how next week's staff schedule actually gets built. Who does it, in what tool, how long does it take?"
+- "Tell me about the last time someone called out at 6:30am. What happens in the next 30 minutes?"
+- "How do you keep ratio when a teacher goes home sick mid-day? Who's tracking that in real time?"
+- "Does the scheduling tool know each teacher's certifications, hours-this-week, OT thresholds, and the rooms they're qualified for? Or is that in your head / a spreadsheet?"
+- "If I told you an AI could draft next week's schedule for you to edit in 30 seconds — what would have to be true for you to trust it?"
+- "What about subs — do you have a pool? How do you reach them at 6:30am?"
+- 🎯 *Listen for: spreadsheets, group texts, sticky notes, mental load, the cost of being short-ratio (closed room? sent kids home? director-on-the-floor?). This is the wedge — get specific dollar/hour cost.*
+
+**(ii) Monthly billing & payments**
+- "Take me through the 1st of the month. Who clicks what? What breaks?"
+- "How are faculty/staff/student rates and subsidies handled? Payroll deduction or direct pay?"
+- "What's your collections process for late payment? Last awkward call?"
+- "Card vs ACH mix? Who eats the processing fees?"
+- 🎯 *Listen for: rate complexity, dunning, refund/credit handling, subsidy reconciliation, year-end tax statements.*
+
+**(iii) Expense management** (hypothesized white-space)
+- "Outside of tuition coming *in* — how do classroom supply purchases, food orders, petty cash, and teacher reimbursements get tracked?"
+- "If a teacher buys $80 of art supplies at Target, what happens?"
+- "How do you reconcile that at month-end? With whom? In what tool?"
+- 🎯 *Procare doesn't do this. Likely QuickBooks + receipts + Excel + (Workday). The seam between ops and accounting.*
+
+**(iv) Sign-in / check-in / pickup**
 - "Walk me through a normal 5pm pickup. What goes wrong on a bad day?"
 - "How do you handle an unauthorized pickup attempt? Show me the click-path."
 - "Do parents check in on their own phone, a kiosk, or staff sign them in?"
 - 🎯 *Listen for: latency, identity/verification, late pickup billing, sub teachers without logins.*
 
-**(ii) Parent notifications & photo sharing**
+**(v) Parent notifications & photo sharing**
 - "Last time a parent complained about the app, what was it about?"
 - "How do teachers decide what to post? Is there a policy or norm?"
 - "What happens to a child's photos when they leave the program?"
-- 🎯 *Listen for: notification lag, content moderation burden, GDPR/consent, archive/export pain.*
-
-**(iii) Monthly billing & payments**
-- "Take me through the 1st of the month. Who clicks what? What breaks?"
-- "How are UW faculty/staff/student rates handled? Payroll deduction or direct pay?"
-- "What's your collections process for late payment? Last awkward call?"
-- "What does your card vs ACH mix look like? Who eats the processing fees?"
-- 🎯 *Listen for: rate complexity, dunning, refund/credit handling, subsidy reconciliation, year-end tax statements.*
-
-**(iv) Expense management** (your hypothesized white-space)
-- "Outside of tuition coming *in* — how do classroom supply purchases, food orders, petty cash, and teacher reimbursements get tracked?"
-- "If a teacher buys $80 of art supplies at Target, what happens?"
-- "How do you reconcile that at month-end? With whom? In what tool?"
-- 🎯 *Listen for: Procare *doesn't* do this; she's stitching QuickBooks + receipts + Excel + UW Workday. The seam between operations and accounting is where the magic is.*
-
-**(v) Staff / ratios / scheduling** (bonus if time)
-- "How do you handle a call-out at 6:30am that breaks ratio in the toddler room?"
-- "Does Procare know your staff schedule, or is that elsewhere?"
+- 🎯 *Listen for: notification lag, content moderation burden, consent, archive/export pain.*
 
 ### F. Magic wand + forced prioritization (3 min)
 
@@ -151,6 +162,7 @@ You should leave with:
 - [ ] Her **complete stack** named (every SaaS, every spreadsheet).
 - [ ] At least **one switch story** with the trigger event, the alternatives considered, and what tipped the decision.
 - [ ] **Top 3 ranked pains** with rough time/$ cost.
+- [ ] Confirmation or rejection of the **AI scheduling hypothesis** (Lauren's live signal — is it universal across directors?).
 - [ ] Confirmation or rejection of the **expense-mgmt seam hypothesis**.
 - [ ] **2+ names** of people to interview next.
 - [ ] Permission to **come back** in 2–4 weeks.
@@ -190,6 +202,7 @@ FRAME:   Learn, don't sell. Stories, not opinions.
 ASK:     "Walk me through the last time..."
 PROBE:   Push / Pull / Anxiety / Habit
 RANK:    Top 3 pains, $/time cost each
+WEDGE:   AI scheduling — does call-out chaos cost real $/hours? (Lauren: yes.)
 SEAM:    Expense mgmt — does it live in Procare? (Bet: no.)
 EXIT:    Names + permission to return.
 ```
