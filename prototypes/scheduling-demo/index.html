@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cadence — staff scheduling for early learning centers</title>
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --card: #ffffff;
+    --ink: #1f2421;
+    --muted: #6b7280;
+    --line: #e7e5df;
+    --brand: #2f6f5e;
+    --brand-soft: #e3efe9;
+    --warn: #c2410c;
+    --warn-soft: #fdeee2;
+    --ok: #15803d;
+    --ok-soft: #e6f4ea;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px;
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 20;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.01em; }
+  .brand .dot { width: 22px; height: 22px; border-radius: 7px; background: var(--brand); display: inline-block; position: relative; }
+  .brand .dot::after { content:""; position:absolute; inset:6px 6px auto auto; width:7px; height:7px; border-radius:50%; background:#fff; top:6px; right:6px;}
+  .center-name { color: var(--muted); font-weight: 500; font-size: 14px; }
+  .demo-pill { font-size: 11px; font-weight: 700; color: var(--brand); background: var(--brand-soft); padding: 4px 9px; border-radius: 999px; text-transform: uppercase; letter-spacing: .06em; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 26px 22px 80px; }
+
+  .hero { margin: 8px 0 22px; }
+  .hero h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -.02em; }
+  .hero p { color: var(--muted); margin: 0; max-width: 640px; }
+
+  .panel {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow); padding: 20px; margin-bottom: 18px;
+  }
+  .panel-head { display:flex; align-items:center; justify-content: space-between; gap:12px; margin-bottom: 14px; }
+  .panel-head h2 { font-size: 16px; margin: 0; }
+  .panel-head .sub { color: var(--muted); font-size: 13px; }
+
+  .btn {
+    appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 600;
+    padding: 11px 18px; border-radius: 10px; background: var(--brand); color: #fff;
+    display: inline-flex; align-items: center; gap: 9px; transition: transform .06s ease, opacity .15s;
+  }
+  .btn:hover { opacity: .93; }
+  .btn:active { transform: translateY(1px); }
+  .btn[disabled] { opacity: .45; cursor: default; }
+  .btn.secondary { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .btn.warn { background: var(--warn); }
+  .btn.ghost { background: transparent; color: var(--brand); padding: 8px 4px; }
+
+  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* generate progress */
+  .gen { display:none; }
+  .gen.show { display:block; }
+  .gen-row { display:flex; align-items:center; gap:10px; padding:7px 0; color: var(--muted); font-size:14px; opacity:.35; transition: opacity .3s; }
+  .gen-row.active { opacity:1; color: var(--ink); }
+  .gen-row.done { opacity:1; color: var(--ink); }
+  .check { width:18px;height:18px;border-radius:50%; background: var(--ok-soft); color: var(--ok); display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; flex:0 0 auto; }
+  .check.pending { background:#eee; color:transparent; }
+
+  /* schedule grid */
+  .grid-scroll { overflow-x:auto; -webkit-overflow-scrolling: touch; }
+  table.sched { border-collapse: separate; border-spacing: 0; width:100%; min-width: 720px; }
+  table.sched th, table.sched td { text-align:left; padding: 10px 12px; border-bottom:1px solid var(--line); vertical-align: top; }
+  table.sched thead th { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color: var(--muted); font-weight:700; background:#faf9f6; position: sticky; top:0; }
+  table.sched .room { font-weight:700; white-space:nowrap; }
+  table.sched .room small { display:block; font-weight:500; color:var(--muted); font-size:11px; }
+  .cell-empty { color:#c4c2bb; }
+  .pill {
+    display:inline-block; font-size:12px; font-weight:600; padding:4px 8px; border-radius:7px;
+    background:#f1efe9; margin: 2px 3px 2px 0; white-space:nowrap;
+  }
+  .pill.lead { background: var(--brand-soft); color: var(--brand); }
+  .pill.flex { background:#eef2ff; color:#4338ca; }
+  .pill.sub  { background:#fef3c7; color:#92400e; }
+  .pill.alert { background: var(--warn-soft); color: var(--warn); outline: 1.5px solid var(--warn); }
+  .pill.added { background: var(--ok-soft); color: var(--ok); outline: 1.5px solid var(--ok); }
+
+  .ratiochip { font-size:11px; font-weight:700; padding:2px 7px; border-radius:999px; background:var(--ok-soft); color:var(--ok); white-space:nowrap; }
+  .ratiochip.bad { background:var(--warn-soft); color:var(--warn); }
+
+  .badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .badge { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px; background:#faf9f6; border:1px solid var(--line); padding:6px 10px; border-radius:8px; }
+  .badge b { color: var(--ink); }
+
+  /* alert banner */
+  .callout { display:none; border-radius:14px; border:1px solid var(--warn); background: var(--warn-soft); padding:16px 18px; margin-bottom:18px; }
+  .callout.show { display:block; animation: pop .25s ease; }
+  @keyframes pop { from { transform: scale(.98); opacity:0;} to {transform:scale(1); opacity:1;} }
+  .callout h3 { margin:0 0 4px; font-size:15px; color:var(--warn); display:flex; align-items:center; gap:8px;}
+  .callout p { margin:0 0 12px; font-size:14px; color:#7c3a16; }
+  .callout .time { font-variant-numeric: tabular-nums; font-weight:700; }
+
+  /* AI suggestion card */
+  .fix { display:none; margin-top:12px; border-top:1px dashed var(--warn); padding-top:12px; }
+  .fix.show { display:block; }
+  .fix .rec { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px; }
+  .fix .rec .why { color:var(--muted); font-size:13px; margin:8px 0 0; }
+  .fix .rec .why li { margin:2px 0; }
+  .reasoning { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px; margin-bottom:10px;}
+
+  .hidden { display:none !important; }
+  .footer-note { color:var(--muted); font-size:12.5px; text-align:center; margin-top:26px; }
+  .step-tag { font-size:11px; font-weight:800; letter-spacing:.08em; color:var(--brand); text-transform:uppercase; }
+  .toast { position: fixed; bottom: 22px; left:50%; transform: translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:11px 18px; border-radius:10px; font-size:14px; opacity:0; transition: all .3s; pointer-events:none; z-index:50;}
+  .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> Cadence <span class="center-name">· Maple Grove Early Learning</span></div>
+    <span class="demo-pill">Concept demo</span>
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="step-tag">Staff scheduling, reimagined</div>
+      <h1>Next week's schedule — built around your rooms, not despite them.</h1>
+      <p>Cadence knows every teacher's certifications, weekly hours, and which rooms they're cleared for. It drafts a compliant week in seconds, and re-solves the moment someone calls out. Click through below.</p>
+    </div>
+
+    <!-- STEP 1: GENERATE -->
+    <div class="panel" id="panel-generate">
+      <div class="panel-head">
+        <div>
+          <h2>Week of May 25–29</h2>
+          <div class="sub" id="gen-sub">Schedule not built yet · 7 teachers, 3 rooms, ratios required all day</div>
+        </div>
+        <button class="btn" id="btn-generate" onclick="generate()">
+          <span id="gen-icon">✦</span> <span id="gen-label">Build the week with AI</span>
+        </button>
+      </div>
+
+      <div class="gen" id="gen-progress">
+        <div class="gen-row" data-i="0"><span class="check pending">✓</span> Reading certifications &amp; room clearances…</div>
+        <div class="gen-row" data-i="1"><span class="check pending">✓</span> Checking required ratios for every hour…</div>
+        <div class="gen-row" data-i="2"><span class="check pending">✓</span> Balancing weekly hours &amp; avoiding overtime…</div>
+        <div class="gen-row" data-i="3"><span class="check pending">✓</span> Honoring time-off requests (Beth: Fri AM)…</div>
+      </div>
+
+      <div id="schedule-area" class="hidden">
+        <div class="grid-scroll">
+          <table class="sched">
+            <thead>
+              <tr>
+                <th>Room</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th>
+              </tr>
+            </thead>
+            <tbody id="sched-body"></tbody>
+          </table>
+        </div>
+        <div class="badges">
+          <div class="badge">✓ <b>Ratios met</b> every hour, every room</div>
+          <div class="badge">✓ <b>Certifications matched</b> to each room</div>
+          <div class="badge">✓ <b>No one over 40 hrs</b> · 0 overtime</div>
+          <div class="badge">⏱ Drafted in <b>4.2 seconds</b></div>
+        </div>
+        <div style="margin-top:16px;">
+          <span class="step-tag">Now the hard part →</span>
+          <div style="margin-top:8px;">
+            <button class="btn warn" id="btn-callout" onclick="callout()">Simulate a 6:30am call-out</button>
+            <span class="sub" style="margin-left:10px;">See what happens when Maria phones in sick.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: CALL-OUT -->
+    <div class="callout" id="callout-banner">
+      <h3>⚠ Ratio at risk — Infant Room, today</h3>
+      <p><span class="time">6:34 AM</span> · <b>Maria S.</b> called out sick. The Infant Room opens at 7:00 with <b>8 infants</b> booked — that needs <b>2 qualified teachers</b> (1:4). Only <b>Priya N.</b> is scheduled. You're short one, and the doors open in <b>26 minutes</b>.</p>
+      <button class="btn warn" id="btn-fix" onclick="fixIt()"><span id="fix-icon">✦</span> <span id="fix-label">Ask Cadence to fix it</span></button>
+
+      <div class="fix" id="fix-area">
+        <div class="reasoning" id="fix-reasoning"><span class="spinner" style="border-color:rgba(194,65,12,.3);border-top-color:var(--warn)"></span> Searching qualified, available staff…</div>
+        <div class="rec hidden" id="fix-rec">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:700;">Recommended: move <span style="color:var(--brand)">Devon R.</span> to the Infant Room, 7:00–11:00</div>
+              <ul class="why">
+                <li>✓ Devon is <b>infant-certified</b> and CPR-current</li>
+                <li>✓ Preschool has <b>slack at open</b> (Aisha covers 1:10 solo until 9:00)</li>
+                <li>✓ Keeps Devon at <b>32 hrs</b> this week — no overtime</li>
+                <li>✓ Restores Infant Room to <b>2 teachers / 8 infants</b> ✦ 1:4 ✓</li>
+              </ul>
+              <div class="why" style="margin-top:8px;">Backup if you'd rather not move Devon: <b>Nina (on-call sub)</b> confirmed available, ETA 7:10.</div>
+            </div>
+            <button class="btn" onclick="applyFix()">Apply this fix</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Concept demo with sample data — no real children or staff. Built to start a conversation, not to sell anything.
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  // ---- sample data ----
+  const days = ["Mon","Tue","Wed","Thu","Fri"];
+  // each room: rows of assignments per day. type: lead/flex/sub/normal
+  const schedule = {
+    "Infant": { ratio:"1:4", kids:"8 infants", rows: {
+      Mon:[["Maria S.","lead"],["Priya N.",""]],
+      Tue:[["Maria S.","lead"],["Priya N.",""]],
+      Wed:[["Maria S.","lead"],["Priya N.",""]],
+      Thu:[["Maria S.","lead"],["Priya N.",""]],
+      Fri:[["Maria S.","lead"],["Priya N.",""]],
+    }},
+    "Toddler": { ratio:"1:7", kids:"12 toddlers", rows: {
+      Mon:[["James T.","lead"],["Beth L.",""]],
+      Tue:[["James T.","lead"],["Beth L.",""]],
+      Wed:[["James T.","lead"],["Devon R.","flex"]],
+      Thu:[["James T.","lead"],["Beth L.",""]],
+      Fri:[["James T.","lead"],["Devon R.","flex"]],
+    }},
+    "Preschool": { ratio:"1:10", kids:"18 preschoolers", rows: {
+      Mon:[["Aisha K.","lead"],["Carlos M.",""]],
+      Tue:[["Aisha K.","lead"],["Carlos M.",""]],
+      Wed:[["Aisha K.","lead"],["Carlos M.",""]],
+      Thu:[["Aisha K.","lead"],["Carlos M.",""]],
+      Fri:[["Aisha K.","lead"],["Carlos M.",""]],
+    }},
+  };
+
+  function pill(name, type){
+    const cls = type ? "pill "+type : "pill";
+    return `<span class="${cls}" data-name="${name}">${name}${type==="lead"?" ·lead":""}${type==="flex"?" ·float":""}${type==="sub"?" ·sub":""}</span>`;
+  }
+
+  function renderSchedule(){
+    const body = document.getElementById("sched-body");
+    let html = "";
+    for(const room in schedule){
+      const r = schedule[room];
+      html += `<tr><td class="room">${room}<small>${r.ratio} · ${r.kids}</small></td>`;
+      for(const d of days){
+        const cell = r.rows[d].map(([n,t])=>pill(n,t)).join("");
+        html += `<td>${cell}</td>`;
+      }
+      html += `</tr>`;
+    }
+    body.innerHTML = html;
+  }
+
+  function showToast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"), 2600);
+  }
+
+  // ---- STEP 1 ----
+  let generated = false;
+  function generate(){
+    if(generated) return;
+    const btn = document.getElementById("btn-generate");
+    btn.disabled = true;
+    document.getElementById("gen-icon").outerHTML = '<span class="spinner" id="gen-icon"></span>';
+    document.getElementById("gen-label").textContent = "Building…";
+    const prog = document.getElementById("gen-progress");
+    prog.classList.add("show");
+    const rows = [...document.querySelectorAll(".gen-row")];
+    let i = 0;
+    const tick = () => {
+      if(i>0){ rows[i-1].classList.remove("active"); rows[i-1].classList.add("done"); rows[i-1].querySelector(".check").classList.remove("pending"); }
+      if(i < rows.length){
+        rows[i].classList.add("active");
+        i++;
+        setTimeout(tick, 850);
+      } else {
+        // done
+        document.getElementById("gen-sub").textContent = "Drafted and compliant · ready to review";
+        document.getElementById("schedule-area").classList.remove("hidden");
+        renderSchedule();
+        btn.classList.add("secondary");
+        btn.innerHTML = "✓ Week built — regenerate";
+        btn.disabled = false;
+        generated = true;
+        document.getElementById("schedule-area").scrollIntoView({behavior:"smooth", block:"nearest"});
+      }
+    };
+    tick();
+  }
+
+  // ---- STEP 2 ----
+  function callout(){
+    // mark Maria as alert across the week's infant row, drop coverage today (Mon shown as "today")
+    const banner = document.getElementById("callout-banner");
+    banner.classList.add("show");
+    // visually flag Maria in the grid
+    document.querySelectorAll('.pill[data-name="Maria S."]').forEach(p=>{
+      p.classList.add("alert"); p.innerHTML = "Maria S. ·OUT";
+    });
+    // flag infant ratio bad
+    flagInfantRatio(true);
+    document.getElementById("btn-callout").disabled = true;
+    banner.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  function flagInfantRatio(bad){
+    const rows = document.querySelectorAll("#sched-body tr");
+    rows.forEach(tr=>{
+      const room = tr.querySelector(".room");
+      if(room && room.firstChild.textContent.trim()==="Infant"){
+        let chip = room.querySelector(".ratiochip");
+        if(!chip){ chip = document.createElement("span"); chip.className="ratiochip"; room.appendChild(document.createElement("br")); room.appendChild(chip); }
+        if(bad){ chip.classList.add("bad"); chip.textContent="ratio broken"; }
+        else { chip.classList.remove("bad"); chip.textContent="ratio ✓"; }
+      }
+    });
+  }
+
+  let fixed = false;
+  function fixIt(){
+    document.getElementById("fix-area").classList.add("show");
+    document.getElementById("fix-icon").outerHTML = '<span class="spinner" id="fix-icon" style="border-color:rgba(255,255,255,.4);border-top-color:#fff"></span>';
+    document.getElementById("fix-label").textContent = "Thinking…";
+    document.getElementById("btn-fix").disabled = true;
+    setTimeout(()=>{
+      document.getElementById("fix-reasoning").innerHTML = '✓ Found a compliant fix in 2 seconds — review below.';
+      document.getElementById("fix-rec").classList.remove("hidden");
+    }, 1900);
+  }
+
+  function applyFix(){
+    if(fixed) return;
+    fixed = true;
+    // Replace Maria's slots with Devon (added) in Infant; show Devon moved
+    const rows = document.querySelectorAll("#sched-body tr");
+    rows.forEach(tr=>{
+      const room = tr.querySelector(".room");
+      if(room && room.firstChild.textContent.trim()==="Infant"){
+        const cells = tr.querySelectorAll("td");
+        // Monday is "today" -> first day cell index 1
+        const today = cells[1];
+        today.querySelector('.pill[data-name="Maria S."]')?.remove();
+        const added = document.createElement("span");
+        added.className = "pill added";
+        added.textContent = "Devon R. ·moved in";
+        today.appendChild(added);
+      }
+    });
+    flagInfantRatio(false);
+    document.querySelector("#fix-rec button").outerHTML = '<span class="ratiochip">✓ Applied</span>';
+    showToast("Fix applied · Infant Room back to 1:4. Devon notified, Aisha notified.");
+  }
+</script>
+</body>
+</html>
