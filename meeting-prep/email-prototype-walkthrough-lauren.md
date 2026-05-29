@@ -1,41 +1,56 @@
 # Prototype walkthrough email to Lauren Wenham
 **Send:** [fill in date]
-**Context:** Follow-up to the May 21 interview + thank-you. Sharing the Cadence scheduling concept demo built off her "AI scheduling is the real puzzle" comment. Goal: get her honest reaction, not a sale.
-**Attach / link:** [paste deployed prototype URL]
+**Context:** Follow-up to the May 21 interview + thank-you. Sharing the "Frontline Scheduling Assistant" prototype built off her "AI scheduling is the real puzzle" comment and her Google Doc workflow. Goal: get her honest reaction, not a sale.
+**Link:** https://flwschedule.vercel.app/
 
 ---
 
-**Subject:** A 2-minute clickable thing built off our conversation — would love your gut reaction
+**Subject:** A 3-minute clickable thing built off our conversation — would love your gut reaction
 
 Hi Lauren,
 
-I couldn't stop thinking about the call-out story you told me — the 6:30am scramble, the texts, the mental math on who's certified for which room. So over the weekend I sketched what it might *feel* like if scheduling actually understood your rooms, ratios, and staff the way you do.
+I couldn't stop thinking about two things from our call: the Google Doc that the schedule actually lives in, and the 6:30am call-out scramble. So over the weekend I sketched what it might feel like if the weekly schedule was a living thing that knew your rooms, ratios, and who was available — and you could change it by just typing.
 
-It's a clickable concept, not a product. Sample data only — no real teachers or kids. About **two minutes** end to end.
+It's a clickable concept, not a product. Sample data only — fictional staff, the real room layout (4 infant, 3 toddler, 4 preschool, kitchen). About **three minutes** end to end.
 
-**Link:** [paste URL here]
+**Link:** https://flwschedule.vercel.app/
 
-### How to walk through it
+### The easiest path: take the built-in tour
 
-There are only two buttons that matter. Click them in order:
+On the home page (titled **"Frontline Scheduling Assistant"** under "UW Children's Center at Portage Bay"), click:
 
-1. **"Build the week with AI"** (top right). Watch what it claims to be checking — certifications, ratios, weekly hours, time-off requests — and then the week it drafts. The point isn't the schedule itself; it's: *does this list of inputs match how you actually think about building a week?*
+> **"Take the guided walkthrough →"**
 
-2. **"Simulate a 6:30am call-out"** (below the schedule). This is the moment from your story. Maria phones in sick, the Infant Room is about to break ratio, doors open in 26 minutes.
+It's a 5-step scripted tour that mirrors the story you told me:
 
-3. **"Ask Cadence to fix it"** (in the orange alert). It proposes moving Devon from Preschool to Infants and explains *why* — certification, where the slack is, no overtime. Then **"Apply this fix"** locks it in.
+1. **Start where the pain is** — the "today" snapshot: schedule in a Google Doc, availability in texts and memory.
+2. **Spot coverage gaps instantly** — click **"See Needs attention →"**. The director dashboard surfaces two unfilled Preschool shifts and two ratio shortfalls (10:1, 18 enrolled, only 1 of 2 staff) for Thursday — flagged automatically, not discovered Thursday morning.
+3. **A teacher sends a quick text** — click **"Try the staff view →"**. From the staff phone view, you (or a teacher) type into the "Text the scheduler" box, e.g. *"I'm unavailable Tuesday after 2pm."* It becomes a structured request in the director's review queue.
+4. **Fix it with the assistant** — click **"Open the builder + assistant →"**. In the schedule builder, the "Scheduling assistant" chat box accepts things like *"Who can cover Preschool on Thursday?"* or *"Mark Nina unavailable on Friday."*
+5. **Publish and notify** — click **"Build & publish →"**. Hit **"Auto-fill open shifts"**, then **"Publish."** Affected staff get a simulated notification. No more re-sharing a Doc.
 
-That's the whole thing.
+There's a **"Before vs. after"** comparison at the bottom that lays out the Google-Doc world vs. this one side by side.
+
+### Then poke around by role (optional, ~2 more min)
+
+Back on the home page, the four **"Open →"** cards let you wear different hats — useful because the same change ripples through all of them:
+
+- **Center Director** — the dashboard with "Needs attention," weekly coverage, and the pending availability changes from Nina and Tom waiting for Approve/Reject.
+- **Lead Teacher** — a per-classroom daily timeline (7am–6pm in 30-min blocks), color-coded by coverage. The note at the bottom says concerns surface to the director automatically.
+- **Classroom Staff** — the phone-style availability view. The "Text the scheduler" box is the same one from step 3 of the tour.
+- **Kitchen Support** — a lighter version for Grace Kim, with a structured "Report a change" form (sick day / leave early / arrive late / unavailable all day).
+
+If anything gets weird, **"Reset demo"** (top right of the Director Dashboard) puts everything back.
 
 ### What I'd love your reaction on
 
 You don't need to write me an essay — three quick gut reactions would be gold:
 
-- **Inputs:** Is the list of things it claims to check (certs, room clearances, weekly hours, time-off) the right list? What's missing that would make or break trust?
-- **The fix moment:** When it proposed moving Devon, did the *reasoning* feel like a real director's reasoning, or like a robot guessing? What would you have wanted it to say?
-- **The honest one:** If a tool actually did this, would you trust it enough to use the draft on Monday morning — or is the risk of getting ratios wrong something you'd never delegate to software?
+- **The gaps the assistant flagged.** On Thursday it surfaces two Preschool ratio shortfalls (10:1, 18 enrolled, 1 of 2 staff). Are those the *kinds* of gaps you'd want surfaced — and is the set of inputs it's reasoning over (ratios, enrollment, availability, qualifications) the right set? What's missing that would make or break trust?
+- **The "text the scheduler" box.** Would your staff actually type *"I'm unavailable Tuesday after 2pm"* into a box, or is text-the-director-directly so habitual that this would just be a second place to do the same thing? What about the director's side — typing *"Who can cover Preschool on Thursday?"* into a chat box: useful, or feels like a toy?
+- **The honest one.** If the assistant proposed a fix and asked you to hit **"Publish,"** would you trust the draft enough to send it — or is the risk of getting ratios wrong something you'd never delegate to software, no matter how good the UI?
 
-Bluntness is more useful to me than politeness. If it feels naive about how your day actually works, I want to know — that's the point of showing it to you first.
+Bluntness is more useful to me than politeness. If it feels naive about how Thursday-morning actually works, I want to know — that's the point of showing it to you first.
 
 No rush. If it's easier to react out loud, I'm happy to jump on 15 minutes whenever works.
 
