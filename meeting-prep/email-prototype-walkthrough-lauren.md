@@ -5,55 +5,27 @@
 
 ---
 
-**Subject:** A 3-minute clickable thing built off our conversation — would love your gut reaction
+**Subject:** Sketched something off our conversation — 3 minutes, would love your take
 
 Hi Lauren,
 
-I couldn't stop thinking about two things from our call: the Google Doc that the schedule actually lives in, and the 6:30am call-out scramble. So over the weekend I sketched what it might feel like if the weekly schedule was a living thing that knew your rooms, ratios, and who was available — and you could change it by just typing.
+Couldn't stop thinking about the Google Doc after we talked. The whole week of the center living in a Doc that gets edited and re-shared by hand, and everyone just kind of accepts it. So I spent the weekend sketching what it might look like if it didn't.
 
-It's a clickable concept, not a product. Sample data only — fictional staff, the real room layout (4 infant, 3 toddler, 4 preschool, kitchen). About **three minutes** end to end.
+It's a clickable thing, not a product. Sample data, fictional staff, real room layout. Maybe 3 minutes:
 
-**Link:** https://flwschedule.vercel.app/
+https://flwschedule.vercel.app/
 
-### The easiest path: take the built-in tour
+Easiest path is the "Take the guided walkthrough" link near the top. About 5 clicks. It walks through a teacher texting "I can't do Tuesday after 2," the dashboard noticing Thursday's Preschool ratio is short, fixing it by typing a question into a chat box ("Who can cover Preschool on Thursday?"), and hitting Publish so everyone gets notified.
 
-On the home page (titled **"Frontline Scheduling Assistant"** under "UW Children's Center at Portage Bay"), click:
+If you have another minute after that, the four role tiles on the home page let you wear different hats — what your staff sees on their phone, what a lead teacher sees, what the kitchen sees. Same change, four seats. Reset demo (top right of the director view) puts it back.
 
-> **"Take the guided walkthrough →"**
+Two things I'd really want to know:
 
-It's a 5-step scripted tour that mirrors the story you told me:
+Would your staff actually type into a "text the scheduler" box, or would they just keep texting you directly? And on your end — would you trust the chat-box draft enough to hit Publish on a Monday morning, or is that one of those things you'd never let software do?
 
-1. **Start where the pain is** — the "today" snapshot: schedule in a Google Doc, availability in texts and memory.
-2. **Spot coverage gaps instantly** — click **"See Needs attention →"**. The director dashboard surfaces two unfilled Preschool shifts and two ratio shortfalls (10:1, 18 enrolled, only 1 of 2 staff) for Thursday — flagged automatically, not discovered Thursday morning.
-3. **A teacher sends a quick text** — click **"Try the staff view →"**. From the staff phone view, you (or a teacher) type into the "Text the scheduler" box, e.g. *"I'm unavailable Tuesday after 2pm."* It becomes a structured request in the director's review queue.
-4. **Fix it with the assistant** — click **"Open the builder + assistant →"**. In the schedule builder, the "Scheduling assistant" chat box accepts things like *"Who can cover Preschool on Thursday?"* or *"Mark Nina unavailable on Friday."*
-5. **Publish and notify** — click **"Build & publish →"**. Hit **"Auto-fill open shifts"**, then **"Publish."** Affected staff get a simulated notification. No more re-sharing a Doc.
+If something's naive about how Thursdays actually work, that's the part I most need to hear. Way more useful than polite.
 
-There's a **"Before vs. after"** comparison at the bottom that lays out the Google-Doc world vs. this one side by side.
+Happy to jump on 15 minutes if it's easier to react out loud.
 
-### Then poke around by role (optional, ~2 more min)
-
-Back on the home page, the four **"Open →"** cards let you wear different hats — useful because the same change ripples through all of them:
-
-- **Center Director** — the dashboard with "Needs attention," weekly coverage, and the pending availability changes from Nina and Tom waiting for Approve/Reject.
-- **Lead Teacher** — a per-classroom daily timeline (7am–6pm in 30-min blocks), color-coded by coverage. The note at the bottom says concerns surface to the director automatically.
-- **Classroom Staff** — the phone-style availability view. The "Text the scheduler" box is the same one from step 3 of the tour.
-- **Kitchen Support** — a lighter version for Grace Kim, with a structured "Report a change" form (sick day / leave early / arrive late / unavailable all day).
-
-If anything gets weird, **"Reset demo"** (top right of the Director Dashboard) puts everything back.
-
-### What I'd love your reaction on
-
-You don't need to write me an essay — three quick gut reactions would be gold:
-
-- **The gaps the assistant flagged.** On Thursday it surfaces two Preschool ratio shortfalls (10:1, 18 enrolled, 1 of 2 staff). Are those the *kinds* of gaps you'd want surfaced — and is the set of inputs it's reasoning over (ratios, enrollment, availability, qualifications) the right set? What's missing that would make or break trust?
-- **The "text the scheduler" box.** Would your staff actually type *"I'm unavailable Tuesday after 2pm"* into a box, or is text-the-director-directly so habitual that this would just be a second place to do the same thing? What about the director's side — typing *"Who can cover Preschool on Thursday?"* into a chat box: useful, or feels like a toy?
-- **The honest one.** If the assistant proposed a fix and asked you to hit **"Publish,"** would you trust the draft enough to send it — or is the risk of getting ratios wrong something you'd never delegate to software, no matter how good the UI?
-
-Bluntness is more useful to me than politeness. If it feels naive about how Thursday-morning actually works, I want to know — that's the point of showing it to you first.
-
-No rush. If it's easier to react out loud, I'm happy to jump on 15 minutes whenever works.
-
-Thanks again, Lauren.
-
+Thanks Lauren,
 Doyle
